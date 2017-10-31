@@ -3,8 +3,11 @@ version: '2'
 services:
   go:
     build: ./
-    container_name: slack_bot
+    container_name: ghb_bot
     volumes:
       - ./app/:/go/app/
+    environment:
+      GITHUB_TOKEN: Write Your GitHub Token
+      SLACK_TOKEN: Write Your Slack Token
     tty: true
 

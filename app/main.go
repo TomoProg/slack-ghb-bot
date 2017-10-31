@@ -3,9 +3,8 @@ package main
 import (
 	"context"
 	"fmt"
-	"io/ioutil"
-	"os"
 	"log"
+	"os"
 
 	"github.com/google/go-github/github"
 	"golang.org/x/oauth2"
@@ -15,7 +14,7 @@ import (
 
 type Tokens struct {
 	Github string
-	Slack string
+	Slack  string
 }
 
 func run(tokens *Tokens) int {
@@ -66,20 +65,10 @@ func main() {
 	tokens := Tokens{}
 
 	// Githubアクセストークン読み込み
-	github_token, err := ioutil.ReadFile("config/github_access_token")
-	if err != nil {
-		fmt.Println(err)
-		os.Exit(1)
-	}
-	tokens.Github = string(github_token)
+	tokens.Github = os.Getenv("GITHUB_TOKEN")
 
-	// Githubアクセストークン読み込み
-	slack_token, err := ioutil.ReadFile("config/slack_api_token")
-	if err != nil {
-		fmt.Println(err)
-		os.Exit(1)
-	}
-	tokens.Slack = string(slack_token)
+	// Slackアクセストークン読み込み
+	tokens.Slack = os.Getenv("SLACK_TOKEN")
 
 	// 起動
 	run(&tokens)
